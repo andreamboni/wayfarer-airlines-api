@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import AddFlightForm from "./forms/AddFlightForm";
+import FlightTable from "./tables/FlightTable";
 
-function App() {
+const App = () => {
+  const [flights, setFlights] = useState([]);
+  const endPoint = "http://localhost:8080/flight"
+
+  useEffect(() => {
+    fetch(endPoint)
+      .then((response) => response.json())
+      .then((data) => {
+        setFlights(data);
+      });
+  }, []);
+
+  const addFlight = (flight) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        departure: flight.departure,
+        arrival: flight.arrival,
+        flightClass: flight.flightClass,
+        terminal: flight.terminal,
+        flightNumber: flight.flightNumber,
+      }),
+    };
+    fetch(endPoint, requestOptions)
+    .then(setFlights([...flights, flight]))
+    .then((response) => {
+      response.json()
+      console.log(response)
+    })
+};
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Project Airlines Front Prototype</h1>
+      <div className="flex-row">
+        <div className="flex-large">
+          <h2>Add flight</h2>
+          <AddFlightForm addFlight={addFlight} />
+        </div>
+        <div className="flex-large">
+          <h2>View flights</h2>
+          <FlightTable flights={flights} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
