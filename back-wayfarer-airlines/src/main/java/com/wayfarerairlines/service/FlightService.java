@@ -92,7 +92,7 @@ public class FlightService {
 
 	}
 	
-	public ResponseEntity<?> deleteFlight(@PathVariable Long id) {
+	public ResponseEntity<?> deleteFlight(Long id) {
 		
 		LOGGER.info("Executing FlightService.deleteFlight()");
 		

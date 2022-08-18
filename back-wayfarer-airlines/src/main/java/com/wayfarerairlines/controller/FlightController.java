@@ -20,7 +20,7 @@ import com.wayfarerairlines.service.FlightService;
 
 @RestController
 @RequestMapping(path = "/flight")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class FlightController {
 
 	@Autowired

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const FlightTable = (props) => (
   <table>
@@ -22,8 +22,18 @@ const FlightTable = (props) => (
             <td>{flight.terminal}</td>
             <td>{flight.flightNumber}</td>
             <td>
-              <button className="button muted-button">Edit</button>
-              <button className="button muted-button">Delete</button>
+              <button
+                onClick={() => props.editRow(flight)}
+                className="button muted-button"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => props.deleteFlight(flight.id)}
+                className="button muted-button"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         ))
@@ -34,6 +44,6 @@ const FlightTable = (props) => (
       )}
     </tbody>
   </table>
-)
+);
 
-export default FlightTable
+export default FlightTable;
